@@ -1,11 +1,4 @@
 {
-  "include": [
-    "**/*",
-  ],
-  "exclude": [
-    "**/node_modules",
-    "./out",
-  ],
   "compilerOptions": {
     "lib": ["ESNext"],
     "jsx": "react-jsx",
