@@ -1,6 +1,3 @@
-- https://github.com/connor4312/esbuild-problem-matchers
-- esbuild 默认错误输出格式参考文档 https://esbuild.github.io/api/#logging 和源码
-
 ## The `chrome` task type
 
 Provide new task type `"chrome"` to launch chrome browser at desired `--remote-debugging-port`. Create a `.vscode/tasks.json` file:
@@ -40,33 +37,12 @@ This task will launch chrome if there is no chrome process running at this remot
 
 For more detail on this files, go to [example/.vscode](./example/.vscode) folder.
 
-## Bundle Extension
+## The `common` Problem Matcher
 
-```sh
-pnpm run build
-pnpm exec vsce package
-```
+## The `esbuild` Problem Matcher
 
-## Install Extension from Bundled
+For more details, refers to:
+- https://esbuild.github.io/api/#logging
+- https://github.com/connor4312/esbuild-problem-matchers
 
-```sh
-code --install-extension ./problem-matcher-0.2.0.vsix
-```
-
-> or run vscode task: install
-
-## Install Extension from Marketplace
-
-```sh
-code --install-extension sherluok.problem-matcher
-```
-
-## Publish Extension
-
-```sh
-pnpm exec vsce publish
-```
-
-> or run vscode task: publish
-
-Open https://marketplace.visualstudio.com/manage
+## The `wrangler-dev` Problem Matcher

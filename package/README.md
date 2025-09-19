@@ -1,13 +1,12 @@
 ```js
-import {
-  beginsPattern,
-  endsPattern,
-  logBeginsPattern,
-  logEndsPattern,
-} from '@sherluok/vscode-problem-matcher/common';
+import { beginsPattern, endsPattern } from '@sherluok/vscode-problem-matcher/common';
 
 console.log(beginsPattern);
 console.log(endsPattern);
+```
+
+```js
+import { logBeginsPattern, logEndsPattern } from '@sherluok/vscode-problem-matcher/node';
 
 logBeginsPattern();
 logEndsPattern();

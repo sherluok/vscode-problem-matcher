@@ -1,6 +1,6 @@
 {
   "name": "@sherluok/vscode-problem-matcher",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Tasks and Problem Matchers for chrome, esbuild, wrangler...",
   "license": "MIT",
   "repository": {
@@ -23,6 +23,11 @@
       "import": "./out/common.mjs",
       "types": "./out/common.d.ts"
     },
+    "./node": {
+      "require": "./out/node.cjs",
+      "import": "./out/node.mjs",
+      "types": "./out/node.d.ts"
+    },
     "./webpack": {
       "require": "./out/webpack.cjs",
       "import": "./out/webpack.mjs",
@@ -32,7 +37,6 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.4",
     "@types/node": "^24.5.2",
-    "esbuild": "^0.25.10",
     "rollup": "^4.50.2",
     "tslib": "^2.8.1",
     "tsx": "^4.20.5",
@@ -43,7 +47,7 @@
     "webpack": "^5.101.3"
   },
   "scripts": {
-    "watch": "vsce package",
+    "watch": "node --import tsx ./build.ts --watch",
     "build": "node --import tsx ./build.ts"
   }
 }

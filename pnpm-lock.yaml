@@ -17,6 +17,9 @@ importers:
 
   extension:
     dependencies:
+      '@sherluok/vscode-problem-matcher':
+        specifier: workspace:*
+        version: link:../package
       zod:
         specifier: ^4.1.9
         version: 4.1.9
@@ -45,9 +48,6 @@ importers:
       '@types/node':
         specifier: ^24.5.2
         version: 24.5.2
-      esbuild:
-        specifier: ^0.25.10
-        version: 0.25.10
       rollup:
         specifier: ^4.50.2
         version: 4.50.2
@@ -62,7 +62,7 @@ importers:
         version: 5.9.2
       webpack:
         specifier: ^5.101.3
-        version: 5.101.3(esbuild@0.25.10)
+        version: 5.101.3
 
 packages:
 
@@ -3516,16 +3516,14 @@ snapshots:
       ansi-escapes: 7.0.0
       supports-hyperlinks: 3.2.0
 
-  terser-webpack-plugin@5.3.14(esbuild@0.25.10)(webpack@5.101.3(esbuild@0.25.10)):
+  terser-webpack-plugin@5.3.14(webpack@5.101.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.44.0
-      webpack: 5.101.3(esbuild@0.25.10)
-    optionalDependencies:
-      esbuild: 0.25.10
+      webpack: 5.101.3
 
   terser@5.44.0:
     dependencies:
@@ -3613,7 +3611,7 @@ snapshots:
 
   webpack-sources@3.3.3: {}
 
-  webpack@5.101.3(esbuild@0.25.10):
+  webpack@5.101.3:
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -3637,7 +3635,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.3
-      terser-webpack-plugin: 5.3.14(esbuild@0.25.10)(webpack@5.101.3(esbuild@0.25.10))
+      terser-webpack-plugin: 5.3.14(webpack@5.101.3)
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:

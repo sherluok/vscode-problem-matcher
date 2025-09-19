@@ -2,6 +2,7 @@
 // https://code.visualstudio.com/api/extension-guides/task-provider
 // https://github.com/microsoft/vscode-extension-samples/tree/main/task-provider-sample
 
+import { styledBeginsPattern, styledEndsPattern } from '@sherluok/vscode-problem-matcher/common';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import * as vscode from 'vscode';
@@ -53,7 +54,7 @@ class ChromeTaskTerminal implements vscode.Pseudoterminal {
   }
 
   async open(initialDimensions: vscode.TerminalDimensions | undefined): Promise<void> {
-    this.#didWrite.fire('vscode background task begin\n\r');
+    this.#didWrite.fire(`${styledBeginsPattern}\n\r`);
 
     const remoteDebuggingPort = this.#defination.remoteDebuggingPort;
 
@@ -96,7 +97,7 @@ class ChromeTaskTerminal implements vscode.Pseudoterminal {
     wsClient.addEventListener('open', () => {
       this.#didWrite.fire(`ws open.\n\r`);
       this.#didWrite.fire(`\n\r`);
-      this.#didWrite.fire('vscode background task end\n\r');
+      this.#didWrite.fire(`${styledEndsPattern}\n\r`);
     });
     wsClient.addEventListener('close', () => {
       this.#didWrite.fire(`ws close.\n\r`);

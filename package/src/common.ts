@@ -1,10 +1,5 @@
 export const beginsPattern = 'vscode background task begins';
 export const endsPattern = 'vscode background task ends';
 
-export function logBeginsPattern() {
-  console.log('\x1b[1;35m%s\x1b[0m', beginsPattern);
-}
-
-export function logEndsPattern() {
-  console.log('\x1b[1;35m%s\x1b[0m', endsPattern);
-}
+export const styledBeginsPattern = `\x1b[1;35m${beginsPattern}\x1b[0m`;
+export const styledEndsPattern = `\x1b[1;35m${endsPattern}\x1b[0m`;

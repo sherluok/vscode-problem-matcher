@@ -1,6 +1,6 @@
 {
   "name": "problem-matcher",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "publisher": "sherluok",
   "displayName": "Problem Matchers",
   "description": "Tasks and Problem Matchers for chrome, esbuild, wrangler...",
@@ -24,12 +24,13 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@sherluok/vscode-problem-matcher": "workspace:*",
     "zod": "^4.1.9"
   },
   "scripts": {
     "pkg": "vsce package",
-    "build": "esbuild src/vscode.ts --bundle --outdir=out --sourcemap --platform=node --target=node22.17.0 --external:vscode",
-    "install:local": "code --install-extension problem-matcher-0.3.0.vsix",
+    "build": "esbuild src/vscode.ts --bundle --outdir=out --sourcemap --platform=node --target=node22.18.0 --external:vscode",
+    "install:local": "code --install-extension problem-matcher-0.3.2.vsix",
     "publish": "vsce publish"
   },
   "activationEvents": [
