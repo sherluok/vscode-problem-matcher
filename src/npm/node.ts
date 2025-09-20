@@ -1,4 +1,4 @@
-import { beginsPattern, endsPattern } from './common';
+import { styledBeginsPattern, styledEndsPattern } from './common';
 
 export function isVscodeTerminal() {
   return process.env.TERM_PROGRAM === 'vscode';
@@ -6,12 +6,12 @@ export function isVscodeTerminal() {
 
 export function logBeginsPattern() {
   if (isVscodeTerminal()) {
-    console.log('\x1b[1;35m%s\x1b[0m', beginsPattern);
+    console.log(styledBeginsPattern);
   }
 }
 
 export function logEndsPattern() {
   if (isVscodeTerminal()) {
-    console.log('\x1b[1;35m%s\x1b[0m', endsPattern);
+    console.log(styledEndsPattern);
   }
 }

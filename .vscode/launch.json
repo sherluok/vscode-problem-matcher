@@ -9,12 +9,12 @@
 			"runtimeExecutable": "${execPath}",
 			"args": [
         "--disable-extensions",
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/out/vscode",
         "${workspaceFolder}/example",
       ],
 			"sourceMaps": true,
 			"outFiles": [
-        "${workspaceFolder}/out/**/*.js",
+        "${workspaceFolder}/out/vscode/**/*.js",
       ],
       "skipFiles": [
         "<node_internals>/**",

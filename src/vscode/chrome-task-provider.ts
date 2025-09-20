@@ -2,11 +2,11 @@
 // https://code.visualstudio.com/api/extension-guides/task-provider
 // https://github.com/microsoft/vscode-extension-samples/tree/main/task-provider-sample
 
-import { styledBeginsPattern, styledEndsPattern } from '@sherluok/vscode-problem-matcher/common';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import * as vscode from 'vscode';
 import { z } from 'zod';
+import { styledBeginsPattern, styledEndsPattern } from '../npm/common';
 import { findChromium, getChromeDevtoolsProtocolEndpointFromApi, getChromeDevtoolsProtocolEndpointFromProcess, launchChromium } from './chrome-process';
 
 const ChromeTaskDefination = z.object({

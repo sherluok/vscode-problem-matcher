@@ -21,4 +21,19 @@
   "[powershell]": {
     "files.encoding": "utf8bom",
   },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/src/vscode/manifest.json",
+      ],
+      "url": "vscode://schemas/vscode-extensions",
+    },
+    {
+      "fileMatch": [
+        "/src/npm/manifest.json",
+        "/src/vscode/manifest.json",
+      ],
+      "url": "https://www.schemastore.org/package",
+    },
+  ]
 }

@@ -35,7 +35,7 @@ This task will launch chrome if there is no chrome process running at this remot
 }
 ```
 
-For more detail on this files, go to [example/.vscode](./example/.vscode) folder.
+For more detail on this files, go to [example/.vscode](https://github.com/sherluok/vscode-problem-matcher/tree/main/extension/example/.vscode) folder.
 
 ## The `common` Problem Matcher
 

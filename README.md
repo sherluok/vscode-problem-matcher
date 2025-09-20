@@ -1,13 +1,13 @@
-![](./extension/media/icon.png)
+![](./src/vscode/icon.png)
 
 ## VS Code Extension
 
 ```sh
-cd ./extension
-pnpm run build
-pnpm exec vsce package
-pnpm exec vsce login sherluok
-pnpm exec vsce publish
+pnpm run vscode:build
+cd ./out/vscode
+pnpm dlx vsce package
+pnpm dlx vsce login sherluok
+pnpm dlx vsce publish
 ```
 
 ### Bundle Extension
@@ -47,8 +47,8 @@ Open https://marketplace.visualstudio.com/manage
 ## NPM Package
 
 ```sh
-cd ./package
-pnpm run build
+pnpm run npm:build
+cd ./out/npm
 pnpm publish --dry-run --no-git-checks
 npm login --registry https://registry.npmjs.org
 pnpm publish --no-git-checks

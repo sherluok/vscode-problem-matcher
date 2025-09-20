@@ -1,0 +1,35 @@
+{
+  "name": "@sherluok/vscode-problem-matcher",
+  "description": "Tasks and Problem Matchers for chrome, esbuild, wrangler...",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "exports": {
+    "./common": {
+      "types": "./common.d.ts",
+      "import": "./common.mjs",
+      "require": "./common.cjs"
+    },
+    "./esbuild": {
+      "types": "./esbuild.d.ts",
+      "import": "./esbuild.mjs",
+      "require": "./esbuild.cjs"
+    },
+    "./node": {
+      "types": "./node.d.ts",
+      "import": "./node.mjs",
+      "require": "./node.cjs"
+    },
+    "./rollup": {
+      "types": "./rollup.d.ts",
+      "import": "./rollup.mjs",
+      "require": "./rollup.cjs"
+    },
+    "./webpack": {
+      "types": "./webpack.d.ts",
+      "import": "./webpack.mjs",
+      "require": "./webpack.cjs"
+    }
+  }
+}
