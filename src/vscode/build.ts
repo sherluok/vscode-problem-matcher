@@ -1,9 +1,9 @@
 import { context as esbuildContext, type BuildOptions, type Plugin } from 'esbuild';
 import { cp, rm, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
-import packageJSON from '../package.json';
-import { vscodeTaskPlugin } from '../src/npm/esbuild';
-import manifestJSON from '../src/vscode/manifest.json';
+import { default as packageJSON } from '../../package.json' with { type: 'json' };
+import { vscodeTaskPlugin } from '../npm/esbuild';
+import { default as manifestJSON } from './manifest.json' with { type: 'json' };
 
 const srcDir = resolve('src/vscode');
 const outDir = resolve('out/vscode');

@@ -16,11 +16,11 @@
         "properties": {
           "executable": {
             "type": "string",
-            "description": "Chrome executable file path, if omitted it will be automatically found on your system"
+            "description": "Chrome executable file path, if omitted it will be automatically found on your system."
           },
           "userDataDir": {
             "type": "string",
-            "description": "Chrome flag --user-data-dir, defaults to ${tmpdir()}/chrome-user-data-dir-${remoteDebuggingPort}"
+            "description": "Chrome flag --user-data-dir, defaults to ${os.tmpdir()}/chrome-user-data-dir-${remoteDebuggingPort}"
           },
           "remoteDebuggingPort": {
             "type": "number",

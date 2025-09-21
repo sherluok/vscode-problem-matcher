@@ -1,17 +1,23 @@
 {
-  "version": "0.3.4",
+  "version": "0.3.6",
   "packageManager": "pnpm@10.17.0",
   "engines": {
     "node": ">=20",
     "pnpm": ">=10"
   },
+  "dependencies": {
+    "rxjs": "^7.8.2"
+  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
     "@types/node": "^24.5.2",
     "@types/vscode": "^1.104.0",
     "@vscode/vsce": "^3.6.0",
     "esbuild": "^0.25.10",
     "rollup": "^4.50.2",
+    "rollup-plugin-dts": "^6.2.3",
     "tslib": "^2.8.1",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
@@ -35,10 +41,10 @@
     }
   },
   "scripts": {
-    "npm:watch": "node --import tsx ./scripts/npm.ts --watch",
-    "npm:build": "node --import tsx ./scripts/npm.ts",
-    "vscode:watch": "node --import tsx ./scripts/vscode.ts --watch",
-    "vscode:build": "node --import tsx ./scripts/vscode.ts"
+    "npm:watch": "node --import tsx ./src/npm/build.ts --watch",
+    "npm:build": "node --import tsx ./src/npm/build.ts",
+    "vscode:watch": "node --import tsx ./src/vscode/build.ts --watch",
+    "vscode:build": "node --import tsx ./src/vscode/build.ts"
   },
   "license": "MIT",
   "homepage": "https://github.com/sherluok/vscode-problem-matcher",
