@@ -2,6 +2,8 @@
 
 ## VS Code Extension
 
+https://marketplace.visualstudio.com/items?itemName=sherluok.problem-matcher
+
 ```sh
 pnpm run vscode:build
 cd ./out/vscode
@@ -45,6 +47,8 @@ Open https://marketplace.visualstudio.com/manage
 
 
 ## NPM Package
+
+https://www.npmjs.com/package/@sherluok/vscode-problem-matcher
 
 ```sh
 pnpm run npm:build

@@ -20,12 +20,16 @@ type ChromeTaskDefination = z.infer<typeof ChromeTaskDefination>;
 
 export class ChromeTaskProvider implements vscode.TaskProvider {
   async provideTasks(token: vscode.CancellationToken): Promise<vscode.Task[]> {
-    console.log('provideTasks()');
+    if (MODE === 'development') {
+      console.log('provideTasks()');
+    }
     return [];
   }
 
   async resolveTask(task: vscode.Task, token: vscode.CancellationToken): Promise<vscode.Task> {
-    console.log('resolveTask()', task);
+    if (MODE === 'development') {
+      console.log('resolveTask()', task);
+    }
     const definition = ChromeTaskDefination.parse(task.definition);
     return new vscode.Task(
       task.definition,

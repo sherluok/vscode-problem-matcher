@@ -1,5 +1,5 @@
 {
-  "version": "0.3.3",
+  "version": "0.3.4",
   "packageManager": "pnpm@10.17.0",
   "engines": {
     "node": ">=20",
@@ -19,9 +19,20 @@
     "zod": "^4.1.9"
   },
   "peerDependencies": {
-    "esbuild": "^0.25.10",
-    "rollup": "^4.50.2",
-    "webpack": "^5.101.3"
+    "esbuild": "0.x",
+    "rollup": "4.x",
+    "webpack": "5.x"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    },
+    "rollup": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
+    }
   },
   "scripts": {
     "npm:watch": "node --import tsx ./scripts/npm.ts --watch",

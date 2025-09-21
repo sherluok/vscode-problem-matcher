@@ -3,125 +3,69 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "watch",
+      "label": "vscode:watch",
       "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}",
-      },
       "command": "pnpm",
-      "args": [
-        "exec",
-        "esbuild",
-        "src/vscode.ts",
-        "--bundle",
-        "--outdir=out",
-        "--sourcemap",
-        "--platform=node",
-        "--target=node22.17.0",
-        "--packages=external",
-        "--watch",
-      ],
+      "args": ["run", "vscode:watch"],
       "isBackground": true,
-      "problemMatcher": {
-        "severity": "error",
-        "applyTo": "closedDocuments",
-        "source": "esbuild",
-        "fileLocation": "relative",
-        "pattern": [
-          {
-            "regexp": "^X \\[([A-Z]+)\\] (.+)",
-            "severity": 1,
-            "message": 2
-          },
-          {
-            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
-            "file": 1,
-            "line": 2,
-            "column": 3
-          }
-        ],
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "\\[watch\\] build started"
-          },
-          "endsPattern": {
-            "regexp": "\\[watch\\] build finished"
-          }
-        }
-      },
+      "problemMatcher": "$common",
     },
     {
-      "label": "build",
+      "label": "vscode:build",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "vscode:build"],
+      "problemMatcher": [],
+    },
+    {
+      "label": "vscode:package",
+      "dependsOn": ["vscode:build"],
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}",
+        "cwd": "${workspaceFolder}/out/vscode",
       },
       "command": "pnpm",
-      "args": [
-        "exec",
-        "esbuild",
-        "src/vscode.ts",
-        "--bundle",
-        "--outdir=out",
-        "--sourcemap",
-        "--platform=node",
-        "--target=node22.17.0",
-        "--external:vscode"
-      ],
-      "problemMatcher": {
-        "severity": "error",
-        "applyTo": "closedDocuments",
-        "source": "esbuild",
-        "fileLocation": "relative",
-        "pattern": [
-          {
-            "regexp": "^X \\[([A-Z]+)\\] (.+)",
-            "severity": 1,
-            "message": 2
-          },
-          {
-            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
-            "file": 1,
-            "line": 2,
-            "column": 3
-          }
-        ],
-      },
-    },
-    {
-      "label": "package",
-      "dependsOn": ["build"],
-      "type": "shell",
-      "command": "pnpm",
-      "args": [
-        "exec",
-        "vsce",
-        "package",
-      ],
+      "args": ["dlx", "vsce", "package"],
       "problemMatcher": [],
     },
     {
-      "label": "install",
-      "dependsOn": ["package"],
+      "label": "vscode:install",
+      "dependsOn": ["vscode:package"],
       "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/out/vscode",
+      },
       "command": "code",
-      "args": [
-        "--install-extension",
-        "problem-matcher-0.2.0.vsix",
-      ],
+      "args": ["--install-extension", "problem-matcher-0.3.3.vsix"],
       "problemMatcher": [],
     },
     {
-      "label": "publish",
-      "dependsOn": ["package"],
+      "label": "vscode:publish",
+      "dependsOn": ["vscode:package"],
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/out/vscode",
+      },
+      "command": "pnpm",
+      "args": ["dlx", "vsce", "publish"],
+      "problemMatcher": [],
+    },
+    {
+      "label": "npm:build",
       "type": "shell",
       "command": "pnpm",
-      "args": [
-        "exec",
-        "vsce",
-        "publish",
-      ],
+      "args": ["run", "npm:build"],
+      "problemMatcher": [],
+    },
+    {
+      "label": "npm:publish",
+      "dependsOn": ["npm:build"],
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/out/npm",
+      },
+      "command": "pnpm",
+      "args": ["publish", "--no-git-checks"],
       "problemMatcher": [],
     },
   ]

@@ -95,6 +95,7 @@ async function copyTemplates() {
     homepage: packageJSON.homepage,
     license: packageJSON.license,
     peerDependencies: packageJSON.peerDependencies,
+    peerDependenciesMeta: packageJSON.peerDependenciesMeta,
   }, manifestJSON);
 
   await writeFile(join(outDir, 'package.json'), JSON.stringify(npmPackageJSON, null, 2));

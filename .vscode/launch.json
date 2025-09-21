@@ -5,7 +5,7 @@
 			"name": "Launch Extension",
 			"type": "extensionHost",
 			"request": "launch",
-      "preLaunchTask": "watch",
+      "preLaunchTask": "vscode:watch",
 			"runtimeExecutable": "${execPath}",
 			"args": [
         "--disable-extensions",
