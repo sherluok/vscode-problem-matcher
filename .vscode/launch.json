@@ -10,7 +10,7 @@
 			"args": [
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}/out/vscode",
-        "${workspaceFolder}/example",
+        "${workspaceFolder}/examples/icons",
       ],
 			"sourceMaps": true,
 			"outFiles": [

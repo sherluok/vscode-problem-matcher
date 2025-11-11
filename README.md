@@ -2,7 +2,27 @@
 
 ## VS Code Extension
 
-https://marketplace.visualstudio.com/items?itemName=sherluok.problem-matcher
+A vscode extension published under id [`sherluok.problem-matcher`](https://marketplace.visualstudio.com/items?itemName=sherluok.problem-matcher) at marketplace.
+
+```sh
+code --install-extension sherluok.problem-matcher
+```
+
+[Doc](./src/vscode/README.md)
+
+## NPM Package
+
+A npm package published under id [`@sherluok/vscode-problem-matcher`](https://www.npmjs.com/package/@sherluok/vscode-problem-matcher) at npm registry.
+
+```sh
+pnpm add @sherluok/vscode-problem-matcher
+```
+
+[Doc](./src/npm/README.md)
+
+## Development
+
+### vscode
 
 ```sh
 pnpm run vscode:build
@@ -12,14 +32,15 @@ pnpm dlx vsce login sherluok
 pnpm dlx vsce publish
 ```
 
-### Bundle Extension
+#### Bundle Extension
 
 ```sh
-pnpm run build
-pnpm exec vsce package
+pnpm run vscode:build
+cd ./out/vscode
+pnpm dlx vsce package
 ```
 
-### Install Extension from Bundled
+#### Install Extension from Bundled
 
 ```sh
 code --install-extension ./problem-matcher-0.2.0.vsix
@@ -27,13 +48,13 @@ code --install-extension ./problem-matcher-0.2.0.vsix
 
 > or run vscode task: install
 
-### Install Extension from Marketplace
+#### Install Extension from Marketplace
 
 ```sh
 code --install-extension sherluok.problem-matcher
 ```
 
-### Publish Extension
+#### Publish Extension
 
 https://code.visualstudio.com/api/working-with-extensions/publishing-extension
 
@@ -45,10 +66,7 @@ pnpm exec vsce publish
 
 Open https://marketplace.visualstudio.com/manage
 
-
-## NPM Package
-
-https://www.npmjs.com/package/@sherluok/vscode-problem-matcher
+### npm
 
 ```sh
 pnpm run npm:build

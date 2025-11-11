@@ -25,7 +25,7 @@
         "cwd": "${workspaceFolder}/out/vscode",
       },
       "command": "pnpm",
-      "args": ["dlx", "vsce", "package"],
+      "args": ["dlx", "vsce", "package", "--out", "problem-matcher.vsix"],
       "problemMatcher": [],
     },
     {
@@ -36,7 +36,7 @@
         "cwd": "${workspaceFolder}/out/vscode",
       },
       "command": "code",
-      "args": ["--install-extension", "problem-matcher-0.3.3.vsix"],
+      "args": ["--install-extension", "problem-matcher.vsix"],
       "problemMatcher": [],
     },
     {

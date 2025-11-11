@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "brand-chrome",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-chrome"
+      }
+    },
+    {
+      "label": "brand-esbuild",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-esbuild"
+      }
+    },
+    {
+      "label": "brand-nodejs",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-nodejs"
+      }
+    },
+    {
+      "label": "brand-react",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-react"
+      }
+    },
+    {
+      "label": "brand-vscode",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-vscode"
+      }
+    },
+    {
+      "label": "brand-webpack",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-webpack"
+      }
+    }
+  ]
+}
