@@ -14,6 +14,7 @@ const ChromeTaskDefination = z.object({
   userDataDir: z.string().optional(),
   remoteDebuggingPort: z.number(),
   startingPage: z.string().optional(),
+  additionalFlags: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.string().array()])).optional(),
 });
 
 type ChromeTaskDefination = z.infer<typeof ChromeTaskDefination>;
@@ -58,32 +59,35 @@ class ChromeTaskTerminal implements vscode.Pseudoterminal {
   }
 
   async open(initialDimensions: vscode.TerminalDimensions | undefined): Promise<void> {
-    this.#didWrite.fire(`${styledBeginsPattern}\n\r`);
+    this.#didWrite.fire(`${styledBeginsPattern}\r\n`);
 
     const remoteDebuggingPort = this.#defination.remoteDebuggingPort;
 
     const wsURL = await getChromeDevtoolsProtocolEndpointFromApi(remoteDebuggingPort).then((wsURL) => {
-      this.#didWrite.fire(`\n\r`);
-      this.#didWrite.fire(`Chrome process already exists.\n\r`);
-      this.#didWrite.fire(`\n\r`);
-      this.#didWrite.fire(`remoteDebuggingPort: ${JSON.stringify(remoteDebuggingPort)}\n\r`);
+      this.#didWrite.fire(`\r\n`);
+      this.#didWrite.fire(`Chrome process already exists.\r\n`);
+      this.#didWrite.fire(`\r\n`);
+      this.#didWrite.fire(`remoteDebuggingPort: ${JSON.stringify(remoteDebuggingPort)}\r\n`);
       return wsURL;
     }).catch(async () => {
       const executable = this.#defination.executable || await findChromium();
       const userDataDir = this.#defination.userDataDir || join(tmpdir(), `chrome-user-data-dir-${remoteDebuggingPort}`);
       const startingPage = this.#defination.startingPage;
-      this.#didWrite.fire(`\n\r`);
-      this.#didWrite.fire(`Chrome process not exists, launching...\n\r`);
-      this.#didWrite.fire(`\n\r`);
-      this.#didWrite.fire(`executable: ${JSON.stringify(executable)}\n\r`);
-      this.#didWrite.fire(`userDataDir: ${JSON.stringify(userDataDir)}\n\r`);
-      this.#didWrite.fire(`remoteDebuggingPort: ${JSON.stringify(remoteDebuggingPort)}\n\r`);
-      this.#didWrite.fire(`startingPage: ${JSON.stringify(startingPage)}\n\r`);
+      const additionalFlags = this.#defination.additionalFlags;
+      this.#didWrite.fire(`\r\n`);
+      this.#didWrite.fire(`Chrome process not exists, launching...\r\n`);
+      this.#didWrite.fire(`\r\n`);
+      this.#didWrite.fire(`executable: ${JSON.stringify(executable)}\r\n`);
+      this.#didWrite.fire(`userDataDir: ${JSON.stringify(userDataDir)}\r\n`);
+      this.#didWrite.fire(`remoteDebuggingPort: ${JSON.stringify(remoteDebuggingPort)}\r\n`);
+      this.#didWrite.fire(`startingPage: ${JSON.stringify(startingPage)}\r\n`);
+      this.#didWrite.fire(`additionalFlags: ${JSON.stringify(additionalFlags)}\r\n`);
       const chromeProcess = launchChromium({
         executable: executable,
         userDataDir,
         remoteDebuggingPort,
         startingPage,
+        additionalFlags,
       });
       this.#didUserClose.event(() => {
         console.log(`Closed by an act of the user...`);
@@ -93,27 +97,34 @@ class ChromeTaskTerminal implements vscode.Pseudoterminal {
       return wsURL;
     });
 
-    this.#didWrite.fire(`\n\r`);
-    this.#didWrite.fire(`ws endpoint: ${JSON.stringify(wsURL.toString())}\n\r`);
+    this.#didWrite.fire(`\r\n`);
+    this.#didWrite.fire(`ws endpoint: ${JSON.stringify(wsURL.toString())}\r\n`);
 
     const wsClient = new WebSocket(wsURL);
 
     wsClient.addEventListener('open', () => {
-      this.#didWrite.fire(`ws open.\n\r`);
-      this.#didWrite.fire(`\n\r`);
-      this.#didWrite.fire(`${styledEndsPattern}\n\r`);
+      this.#didWrite.fire(`ws open.\r\n`);
+      this.#didWrite.fire(`\r\n`);
+      this.#didWrite.fire(`${styledEndsPattern}\r\n`);
     });
     wsClient.addEventListener('close', () => {
-      this.#didWrite.fire(`ws close.\n\r`);
+      this.#didWrite.fire(`ws close.\r\n`);
       this.#didClose.fire(0);
     });
     wsClient.addEventListener('error', () => {
-      this.#didWrite.fire(`ws error!\n\r`);
+      this.#didWrite.fire(`ws error!\r\n`);
       this.#didClose.fire(1);
     });
   }
 
   close(): void {
     this.#didUserClose.fire();
+  }
+
+  handleInput(data: string): void {
+    this.#didWrite.fire(`handleInput(${JSON.stringify(data)})\r\n`);
+    if (data === '\u0003') {
+      this.#didUserClose.fire();
+    }
   }
 }
