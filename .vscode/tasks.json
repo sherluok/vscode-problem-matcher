@@ -3,12 +3,25 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Increase package.json version",
+      "type": "shell",
+      "command": "node",
+      "args": ["--import", "tsx", "./build/increase-version.ts"],
+      "problemMatcher": [],
+      "icon": {
+        "id": "brand-nodejs",
+      },
+    },
+    {
       "label": "vscode:watch",
       "type": "shell",
       "command": "pnpm",
       "args": ["run", "vscode:watch"],
       "isBackground": true,
       "problemMatcher": "$common",
+      "icon": {
+        "id": "brand-esbuild",
+      },
     },
     {
       "label": "vscode:build",
@@ -16,6 +29,9 @@
       "command": "pnpm",
       "args": ["run", "vscode:build"],
       "problemMatcher": [],
+      "icon": {
+        "id": "brand-esbuild",
+      },
     },
     {
       "label": "vscode:package",
@@ -27,10 +43,16 @@
       "command": "pnpm",
       "args": ["dlx", "vsce", "package", "--out", "problem-matcher.vsix"],
       "problemMatcher": [],
+      "icon": {
+        "id": "brand-vscode",
+      },
     },
     {
       "label": "vscode:install",
-      "dependsOn": ["vscode:package"],
+      "dependsOn": [
+        "Increase package.json version",
+        "vscode:package",
+      ],
       "type": "shell",
       "options": {
         "cwd": "${workspaceFolder}/out/vscode",
@@ -38,6 +60,9 @@
       "command": "code",
       "args": ["--install-extension", "problem-matcher.vsix"],
       "problemMatcher": [],
+      "icon": {
+        "id": "brand-vscode",
+      },
     },
     {
       "label": "vscode:publish",
@@ -49,6 +74,9 @@
       "command": "pnpm",
       "args": ["dlx", "vsce", "publish"],
       "problemMatcher": [],
+      "icon": {
+        "id": "brand-vscode",
+      },
     },
     {
       "label": "npm:build",
@@ -56,6 +84,9 @@
       "command": "pnpm",
       "args": ["run", "npm:build"],
       "problemMatcher": [],
+      "icon": {
+        "id": "brand-esbuild",
+      },
     },
     {
       "label": "npm:publish",
@@ -67,6 +98,9 @@
       "command": "pnpm",
       "args": ["publish", "--no-git-checks"],
       "problemMatcher": [],
+      "icon": {
+        "id": "brand-npm",
+      },
     },
   ]
 }

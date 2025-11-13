@@ -13,9 +13,14 @@ import { basename, join, relative, resolve } from 'node:path';
 import { cwd } from 'node:process';
 import { InputPluginOption, OutputOptions, Plugin, rollup as rollupBuild, RollupBuild, RollupOptions, watch as rollupWatch } from 'rollup';
 import { dts } from 'rollup-plugin-dts';
-import { default as packageJSON } from '../../package.json' with { type: 'json' };
-import { default as manifestJSON } from './manifest.json' with { type: 'json' };
-import { SharedVscodeTaskPluginFactory } from './rollup';
+import { default as packageJSON } from '../package.json' with { type: 'json' };
+import { default as manifestJSON } from '../src/npm/manifest.json' with { type: 'json' };
+import { SharedVscodeTaskPluginFactory } from '../src/npm/rollup';
+
+const workspaceRoot = join(__dirname, '..');
+
+const srcDir = join(workspaceRoot, 'src/npm');
+const outDir = join(workspaceRoot, 'out/npm');
 
 const vscodeTask = new SharedVscodeTaskPluginFactory({
   buildStart() {
@@ -37,9 +42,6 @@ const vscodeTask = new SharedVscodeTaskPluginFactory({
     console.log(new Date().toLocaleString());
   },
 });
-
-const srcDir = resolve('src/npm');
-const outDir = resolve('out/npm');
 
 const inputEntries = [
   join(srcDir, 'common.ts'),

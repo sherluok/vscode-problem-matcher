@@ -1,6 +1,6 @@
 import { type ChildProcessByStdio, spawn } from 'node:child_process';
 import { accessSync, constants } from 'node:fs';
-import { platform, tmpdir } from 'node:os';
+import { platform } from 'node:os';
 import { join } from 'node:path';
 import { type Readable, type Writable } from 'node:stream';
 import { z } from 'zod';
@@ -33,25 +33,34 @@ export function findChromium(): string {
   }
 }
 
-export type ChromiumLaunchFlags = {
-  [key: `--${string}`]: string | number | boolean | string[] | undefined;
+export type ChromiumCommandLineSwitches = {
+  [key: `--${string}`]: string | number | boolean | (string | number)[] | undefined;
+  /**
+   * Enables remote debug over HTTP on the specified port. [↪](https://peter.sh/experiments/chromium-command-line-switches/#remote-debugging-port)\
+   * ❗From Chrome 136 `--remote-debugging-port` must be accompanied by the `--user-data-dir` switch to point to a non-standard directory. [↪](https://developer.chrome.com/blog/remote-debugging-port)
+   */
+  '--remote-debugging-port': number;
+  /** Makes Content Shell use the given path for its data directory. [↪](https://peter.sh/experiments/chromium-command-line-switches/#user-data-dir) */
+  '--user-data-dir': string;
+  /** This flag makes Chrome auto-open DevTools window for each tab. It is intended to be used by developers and automation to not require user interaction for opening DevTools. [↪](https://peter.sh/experiments/chromium-command-line-switches/#auto-open-devtools-for-tabs) */
   '--auto-open-devtools-for-tabs'?: boolean;
 };
 
-export function formatChromiumFlags(flags: ChromiumLaunchFlags): string[] {
+export function formatChromiumCommandLineSwitches(switches: ChromiumCommandLineSwitches): string[] {
   const args: string[] = [];
 
-  for (const [key, value] of Object.entries(flags)) {
-    if (typeof value === 'boolean' && value) {
-      args.push(`${key}`);
-    }
-    if (typeof value === 'number') {
+  for (const [key, value] of Object.entries(switches)) {
+    if (typeof value === 'boolean') {
+      if (value) {
+        args.push(`${key}`);
+      }
+    } else if (typeof value === 'number') {
       args.push(`${key}=${value}`);
-    }
-    if (typeof value === 'string' && value) {
-      args.push(`${key}=${value}`);
-    }
-    if (Array.isArray(value)) {
+    } else if (typeof value === 'string') {
+      if (value) {
+        args.push(`${key}=${value}`);
+      }
+    } else if (Array.isArray(value)) {
       const v = value.join(',');
       if (v) {
         args.push(`${key}=${v}`);
@@ -62,31 +71,26 @@ export function formatChromiumFlags(flags: ChromiumLaunchFlags): string[] {
   return args;
 }
 
+export function formatChromiumCommandLineArgs(switches: ChromiumCommandLineSwitches, startingPage?: string | URL): string[] {
+  const args = formatChromiumCommandLineSwitches(switches);
+
+  if (startingPage) {
+    args.push(startingPage.toString());
+  }
+
+  return args;
+}
+
 export type ChromiumLaunchOptions = {
-  remoteDebuggingPort: number;
   /** File path to chromium executable, defaults to return value of {@link findChromium}. */
-  executable?: string;
-  userDataDir?: string;
+  executable: string;
+  /** see [List of Chromium Command Line Switches](https://peter.sh/experiments/chromium-command-line-switches/#auto-open-devtools-for-tabs) */
+  switches: ChromiumCommandLineSwitches;
   startingPage?: string | URL;
-  additionalFlags?: ChromiumLaunchFlags;
 };
 
 export function launchChromium(options: ChromiumLaunchOptions) {
-  const executable = options.executable ?? findChromium();
-  const remoteDebuggingPort = options.remoteDebuggingPort;
-  const userDataDir = options.userDataDir ?? join(tmpdir(), `chrome-user-data-dir-${remoteDebuggingPort}`);
-
-  const args = formatChromiumFlags({
-    ...options.additionalFlags,
-    '--user-data-dir': userDataDir,
-    '--remote-debugging-port': remoteDebuggingPort,
-  });
-
-  if (options.startingPage) {
-    args.push(options.startingPage.toString());
-  }
-
-  return spawn(executable, args, {
+  return spawn(options.executable, formatChromiumCommandLineArgs(options.switches, options.startingPage), {
     detached: true,
     stdio: ['ignore', 'ignore', 'pipe'],
   });
@@ -129,7 +133,7 @@ export function getChromeDevtoolsProtocolEndpointFromProcess(chromeProcess: Chil
 }
 
 export function getChromeDevtoolsProtocolEndpoint(options: ChromiumLaunchOptions): Promise<URL> {
-  return getChromeDevtoolsProtocolEndpointFromApi(options.remoteDebuggingPort).catch(() => {
+  return getChromeDevtoolsProtocolEndpointFromApi(options.switches['--remote-debugging-port']).catch(() => {
     return getChromeDevtoolsProtocolEndpointFromProcess(launchChromium(options));
   });
 }

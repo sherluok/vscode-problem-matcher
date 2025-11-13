@@ -13,27 +13,77 @@
     "taskDefinitions": [
       {
         "type": "chrome",
+        "required": [
+          "switches"
+        ],
         "properties": {
           "executable": {
             "type": "string",
             "description": "Chrome executable file path, if omitted it will be automatically found on your system."
           },
-          "userDataDir": {
-            "type": "string",
-            "description": "Chrome flag --user-data-dir, defaults to ${os.tmpdir()}/chrome-user-data-dir-${remoteDebuggingPort}"
-          },
-          "remoteDebuggingPort": {
-            "type": "number",
-            "description": "Chrome flag --remote-debugging-port"
-          },
           "startingPage": {
             "type": "string",
             "description": "Default page to load when Chrome open"
+          },
+          "switches": {
+            "type": "object",
+            "description": "Chromium command line switches. ↪ https://peter.sh/experiments/chromium-command-line-switches/",
+            "additionalProperties": false,
+            "required": [
+              "--remote-debugging-port"
+            ],
+            "properties": {
+              "--remote-debugging-port": {
+                "type": "number",
+                "description": "Enables remote debug over HTTP on the specified port."
+              },
+              "--user-data-dir": {
+                "type": "string",
+                "description": "Makes Content Shell use the given path for its data directory. Defaults to `${os.tmpdir()}/chrome-user-data-dir-${remoteDebuggingPort}`"
+              },
+              "--auto-open-devtools-for-tabs": {
+                "type": "boolean",
+                "description": "This flag makes Chrome auto-open DevTools window for each tab. It is intended to be used by developers and automation to not require user interaction for opening DevTools. ↪ https://peter.sh/experiments/chromium-command-line-switches/#auto-open-devtools-for-tabs"
+              }
+            },
+            "patternProperties": {
+              "^--": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "description": "add --key=value argument, if empty string argument will be ignored."
+                  },
+                  {
+                    "type": "number",
+                    "description": "add --key=value argument."
+                  },
+                  {
+                    "type": "boolean",
+                    "description": "add --key argument without value specified, if false argument will be ignored."
+                  },
+                  {
+                    "type": "array",
+                    "description": "add --key=item[,item] argument, if empty array argument will be ignored",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "null",
+                    "description": "argument will be ignored."
+                  }
+                ]
+              }
+            }
           }
-        },
-        "required": [
-          "remoteDebuggingPort"
-        ]
+        }
       }
     ],
     "problemPatterns": [],

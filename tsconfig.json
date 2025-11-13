@@ -1,6 +1,6 @@
 {
   "include": [
-    "./scripts/**/*",
+    "./build/**/*",
     "./src/**/*",
     "./rollup.config.ts",
   ],

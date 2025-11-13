@@ -10,11 +10,27 @@
       }
     },
     {
+      "label": "brand-docker",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-docker"
+      }
+    },
+    {
       "label": "brand-esbuild",
       "type": "shell",
       "command": "pwd",
       "icon": {
         "id": "brand-esbuild"
+      }
+    },
+    {
+      "label": "brand-github",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-github"
       }
     },
     {
@@ -26,11 +42,27 @@
       }
     },
     {
+      "label": "brand-npm",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-npm"
+      }
+    },
+    {
       "label": "brand-react",
       "type": "shell",
       "command": "pwd",
       "icon": {
         "id": "brand-react"
+      }
+    },
+    {
+      "label": "brand-rollup",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-rollup"
       }
     },
     {

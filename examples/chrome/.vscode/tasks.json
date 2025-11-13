@@ -6,17 +6,43 @@
       "label": "launch",
       "type": "chrome",
       "startingPage": "http://localhost:8080",
-      "remoteDebuggingPort": 9230,
-      "isBackground": true,
+      "switches": {
+        "--remote-debugging-port": 9230
+      },
+      "isBackground": true
     },
     {
       "label": "launch more options",
       "type": "chrome",
       "executable": "",
-      "userDataDir": "",
-      "startingPage": "http://localhost:8080",
-      "remoteDebuggingPort": 9230,
-      "isBackground": true,
+      "switches": {
+        "--remote-debugging-port": 9230,
+        "--user-data-dir": "${workspaceFolder}/cache/chrome-user-data-dir-9230",
+        "--auto-open-devtools-for-tabs": true,
+        "--app": "http://localhost:8080",
+        "--window-size": [
+          800,
+          600
+        ]
+      },
+      "isBackground": true
     },
+    {
+      "label": "launch more options",
+      "type": "chrome",
+      "executable": "",
+      "switches": {
+        "--remote-debugging-port": 9230,
+        "--user-data-dir": "${workspaceFolder}/cache/chrome-user-data-dir-9230",
+        "--auto-open-devtools-for-tabs": true,
+        "--app": "http://localhost:8080",
+        "--window-size": [
+          800,
+          600
+        ]
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    }
   ]
 }

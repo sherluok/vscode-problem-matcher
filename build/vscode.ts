@@ -3,12 +3,11 @@ import { cpSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { cp, rm, writeFile } from 'node:fs/promises';
 import { basename, join, posix, resolve, win32 } from 'node:path';
 import { webfont } from 'webfont';
-import { default as packageJSON } from '../../package.json' with { type: 'json' };
-import { vscodeTaskPlugin } from '../npm/esbuild';
-import { default as manifestJSON } from './manifest.json' with { type: 'json' };
+import { default as packageJSON } from '../package.json' with { type: 'json' };
+import { vscodeTaskPlugin } from '../src/npm/esbuild';
+import { default as manifestJSON } from '../src/vscode/manifest.json' with { type: 'json' };
 
-const workspaceRoot = process.cwd();
-const packageRoot = __dirname;
+const workspaceRoot = join(__dirname, '..');
 
 const srcDir = join(workspaceRoot, 'src/vscode');
 const outDir = join(workspaceRoot, 'out/vscode');

@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-			"name": "Launch Extension",
+			"name": "Chrome Tasks",
 			"type": "extensionHost",
 			"request": "launch",
       "preLaunchTask": "vscode:watch",
@@ -10,7 +10,7 @@
 			"args": [
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}/out/vscode",
-        "${workspaceFolder}/examples/icons",
+        "${workspaceFolder}/examples/all.code-workspace",
       ],
 			"sourceMaps": true,
 			"outFiles": [
