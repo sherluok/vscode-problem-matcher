@@ -18,6 +18,14 @@
       }
     },
     {
+      "label": "brand-electron",
+      "type": "shell",
+      "command": "pwd",
+      "icon": {
+        "id": "brand-electron"
+      }
+    },
+    {
       "label": "brand-esbuild",
       "type": "shell",
       "command": "pwd",
